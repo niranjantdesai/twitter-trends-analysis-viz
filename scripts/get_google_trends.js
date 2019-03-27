@@ -12,7 +12,7 @@ const fs = require('fs')
 // var timestamps = {};
 var twitter_trends = {};
 var count = 0;
-fs.createReadStream('data/timeStamps.csv')
+fs.createReadStream('timeStamps.csv')
   .pipe(csv({headers: false}))
   .on('data', (row) => {
     if(count <= 10) {
@@ -28,10 +28,10 @@ fs.createReadStream('data/timeStamps.csv')
       // callAPI(row[0], startDate, endDate)
 
       // Get the related topics from Google Trends for the current tag
-      googleTrends.relatedTopics({keyword: row[0], 
-                              startTime: start_date, 
-                              endTime: end_date, 
-                              geo: 'US'}, 
+      googleTrends.relatedTopics({keyword: row[0],
+                              startTime: start_date,
+                              endTime: end_date,
+                              geo: 'US'},
                               function(err, results) {
         if(err) console.error('Error: ', err);
         else {

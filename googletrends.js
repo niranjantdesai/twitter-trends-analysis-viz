@@ -5,6 +5,7 @@ var converter = new Converter({});
 
 var dataArray = [];
 var trend_names = [];
+var all = [];
 
 
 
@@ -25,6 +26,7 @@ new Promise(function(resolve, reject) {
     var endDate = '20'+split_endDate[2]+'-'+split_endDate[0]+'-'+split_endDate[1]
     result[i].startDate = new Date(startDate)
     result[i].endDate = new Date(endDate)
+    all.push([result[i].Trend, new Date(startDate), new Date(endDate)])
   }
   return result
 
@@ -51,7 +53,7 @@ new Promise(function(resolve, reject) {
     var keysArray = obj.default.rankedList[0].rankedKeyword
     for (var j = 0; j < 5; j++) {
       temp_list = [keysArray[j].topic.title,keysArray[j].value]
-      temp.table.push({trend:trend_names[i], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value}})
+      temp.table.push({trend:all[i][0], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value, startDate:all[i][1], endDate:all[i][2]}})
       index++;
     }
   }
@@ -60,6 +62,7 @@ new Promise(function(resolve, reject) {
 
 }).then(function(result) {
   console.log(result.table)
+  console.log(all)
   // fs.writeFile('output.csv', result.table, 'utf8', function (err) {
   //   if (err) {
   //     console.log('Some error occured - file either not saved or corrupted file saved.');

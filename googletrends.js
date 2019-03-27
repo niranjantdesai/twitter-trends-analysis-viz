@@ -4,10 +4,7 @@ var Converter = require("csvtojson").Converter;
 var converter = new Converter({});
 
 var dataArray = [];
-let obj = {
-    table:[]
-};
-
+var trend_names = [];
 
 
 
@@ -32,30 +29,44 @@ new Promise(function(resolve, reject) {
   return result
 
 }).then(function(result) { // (***)
-  // console.log(result)
   var promises = [];
 
   for (var i = 0; i < result.length; i++) {
     trend_name = result[i].Trend
+    trend_names.push(trend_name)
     val = getTrend(result[i].Trend, result[i].startDate, result[i].endDate)
-    // console.log(val)
     promises.push(val)
-    val.then(function(result) {
-      obj.table.push({trend:trend_name, result:result})
-    })
   }
   return Promise.all(promises)
 
 }).then(function(result) {
-  fs.writeFile('output.csv', result, 'utf8', function (err) {
-    if (err) {
-      console.log('Some error occured - file either not saved or corrupted file saved.');
-    } else{
-      console.log('It\'s saved!');
+  var values = []
+  var super_values = []
+  var temp = {
+      table:[]
+  };
+  var index = 0;
+  for (var i = 0; i < result.length; i++) {
+    var obj = JSON.parse(result[i])
+    var keysArray = obj.default.rankedList[0].rankedKeyword
+    for (var j = 0; j < 5; j++) {
+      temp_list = [keysArray[j].topic.title,keysArray[j].value]
+      temp.table.push({trend:trend_names[i], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value}})
+      index++;
     }
-  });
-  return "1"
+  }
 
+  return temp;
+
+}).then(function(result) {
+  console.log(result.table)
+  // fs.writeFile('output.csv', result.table, 'utf8', function (err) {
+  //   if (err) {
+  //     console.log('Some error occured - file either not saved or corrupted file saved.');
+  //   } else{
+  //     console.log('It\'s saved!');
+  //   }
+  // });
 });
 
 function getTrend(trend, startDate, endDate) {

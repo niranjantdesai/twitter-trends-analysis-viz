@@ -2,14 +2,13 @@ const fs = require('fs');
 const googleTrends = require('google-trends-api');
 var Converter = require("csvtojson").Converter;
 var converter = new Converter({});
-
+// var csvWriter = require('csv-write-stream')
+var fastcsv = require('fast-csv');
 var dataArray = [];
 var trend_names = [];
 var all = [];
 
-
-
-const csvFilePath='timeStamps.csv'
+const csvFilePath='timeStamps_small.csv'
 const csv=require('csvtojson')
 
 new Promise(function(resolve, reject) {
@@ -47,23 +46,41 @@ new Promise(function(resolve, reject) {
 
 }).then(function(result) {
   console.log(result)
-  // var values = []
-  // var super_values = []
-  // var temp = {
-  //     table:[]
-  // };
-  // var index = 0;
-  // for (var i = 0; i < result.length; i++) {
-  //   var obj = JSON.parse(result[i])
-  //   var keysArray = obj.default.rankedList[0].rankedKeyword
-  //   for (var j = 0; j < 5; j++) {
-  //     temp_list = [keysArray[j].topic.title,keysArray[j].value]
-  //     temp.table.push({trend:all[i][0], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value, startDate:all[i][1], endDate:all[i][2]}})
-  //     index++;
-  //   }
-  // }
-  //
-  // return temp;
+  var values = []
+  var super_values = []
+  var temp = {
+      table:[]
+  };
+  // console.log(all)
+  var index = 0;
+  for (var i = 0; i < result.length; i++) {
+    var obj = JSON.parse(result[i])
+    // console.log(obj.default.timelineData)
+    var keysArray = obj.default.timelineData
+    for (var j = 0; j < keysArray.length; j++) {
+      val = []
+      val = [keysArray[j].formattedTime, keysArray[j].formattedValue[0]]
+      var fast_csv = fastcsv.createWriteStream();
+      var writer = fs.createWriteStream("outputfile.csv");
+
+      fast_csv.pipe(writer);
+      fast_csv.write(all[i][0],keysArray[j].formattedTime, keysArray[j].formattedValue[0]);
+      fast_csv.end();
+      // writer.pipe(fs.createWriteStream('output_interest.csv', {flags: 'a'}));
+      // writer.write({
+      //   header1:"hello",
+      //   header2:"world",
+      // });
+      // writer.end();
+      //   console.log(val)
+      //   console.log("break")
+        // temp_list = [keysArray[j].topic.title,keysArray[j].value]
+        // temp.table.push({trend:all[i][0], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value, startDate:all[i][1], endDate:all[i][2]}})
+        // index++;
+      }
+    }
+
+  return temp;
 
 });
 // .then(function(result) {

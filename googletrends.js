@@ -33,7 +33,8 @@ new Promise(function(resolve, reject) {
 }).then(function(result) { // (***)
   var promises = [];
 
-  for (var i = 0; i < result.length; i++) {
+  // for (var i = 0; i < result.length; i++) {
+  for (var i = 0; i < 5; i++) {
     trend_name = result[i].Trend
     trend_names.push(trend_name)
     val = getTrend(result[i].Trend, result[i].startDate, result[i].endDate)
@@ -51,10 +52,15 @@ new Promise(function(resolve, reject) {
   for (var i = 0; i < result.length; i++) {
     var obj = JSON.parse(result[i])
     var keysArray = obj.default.rankedList[0].rankedKeyword
-    for (var j = 0; j < 5; j++) {
-      temp_list = [keysArray[j].topic.title,keysArray[j].value]
-      temp.table.push({trend:all[i][0], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value, startDate:all[i][1], endDate:all[i][2]}})
-      index++;
+    // check if the API yielded a result
+    if(keysArray.length)
+    {
+      for (var j = 0; j < 5; j++) 
+      {
+        temp_list = [keysArray[j].topic.title,keysArray[j].value]
+        temp.table.push({trend:all[i][0], result:{relatedTopic:keysArray[j].topic.title, value:keysArray[j].value, startDate:all[i][1], endDate:all[i][2]}})
+        index++;
+      }
     }
   }
 

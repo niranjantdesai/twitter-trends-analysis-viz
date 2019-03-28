@@ -27,21 +27,47 @@ new Promise(function(resolve, reject) {
     var endDate = '20'+split_endDate[2]+'-'+split_endDate[0]+'-'+split_endDate[1]
     var startDateOriginal = new Date(startDate);
     startDateOriginal.setDate(startDateOriginal.getDate() - lookback);   // lookback
-    var endDateOriginal = new Date(endDate);
+    startDateOriginal = new Date(startDateOriginal.toUTCString().substr(0, 25))
+    // var endDateOriginal = new Date(endDate);
+    var endDateOriginal = new Date(new Date(endDate).toUTCString().substr(0, 25))
     result[i].startDate = startDateOriginal
     result[i].endDate = endDateOriginal
     all.push([result[i].Trend, startDateOriginal, endDateOriginal])
   }
   return result
 
-}).then(function(result) { // (***)
+}).then(async function(result) { // (***)
   var promises = [];
 
-  for (var i = 0; i < result.length; i++) {
+  for (var i = 0, p = Promise.resolve(); i < result.length; i++) {
     trend_name = result[i].Trend
-    trend_names.push(trend_name)
-    val = interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
-    promises.push(val)
+    // val = interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
+    // promises.push(val)
+    // p = p.then(_ => interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
+    //   .then(function(api_results){
+    //     trend_names.push(trend_name);
+    //     promises.push(api_results);
+    //   })
+    //   .catch(function(err){
+    //     var wait_seconds = 60;
+    //     var waitTill = new Date(new Date().getTime() + wait_seconds * 1000);
+    //     while(waitTill > new Date()){}
+    //     --i;
+    //   })
+    // );
+    await interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
+      .then(function(api_results){
+        trend_names.push(trend_name);
+        promises.push(api_results);
+      })
+      .catch(function(err){
+        var wait_seconds = 60;
+        // nasty hack to wait
+        var waitTill = new Date(new Date().getTime() + wait_seconds * 1000);
+        while(waitTill > new Date()){}
+        // decrement index because we have to query it again
+        --i;
+      })
   }
   return Promise.all(promises)
 
@@ -96,8 +122,15 @@ new Promise(function(resolve, reject) {
 
 function interestOverTime(trend, startDate, endDate) {
    return new Promise(function(resolve, reject){
-      var api_return = googleTrends.interestOverTime({keyword: trend, startTime: startDate, endTime: endDate});
-      return resolve(api_return);
-      return reject(error);
+      // var api_return = googleTrends.interestOverTime({keyword: trend, startTime: startDate, endTime: endDate});
+      // return resolve(api_return);
+      // return reject(error);
+      googleTrends.interestOverTime({keyword: trend, startTime: startDate, endTime: endDate})
+      .then(function(results){
+        return resolve(results);
+      })
+      .catch(function(err){
+        return reject(err);
+      })
    });
 }

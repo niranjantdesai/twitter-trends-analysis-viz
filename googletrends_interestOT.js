@@ -8,7 +8,8 @@ var dataArray = [];
 var trend_names = [];
 var all = [];
 
-const csvFilePath='timeStamps_small.csv'
+// const csvFilePath='remaining.csv'
+const csvFilePath='timeStamps.csv'
 const csv=require('csvtojson')
 
 var lookback = 15
@@ -40,23 +41,13 @@ new Promise(function(resolve, reject) {
   var promises = [];
 
 
-  for (var i = 0, p = Promise.resolve(); i < result.length; i++) {
+  // for (var i = 0, p = Promise.resolve(); i < result.length; i++) {
+  for (var i = 1000, p = Promise.resolve(); i < result.length; i++) {
+  // for (var i = 700, p = Promise.resolve(); i < 800; i++) {
     trend_name = result[i].Trend
     console.log(trend_name)
-    // val = interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
-    // promises.push(val)
-    // p = p.then(_ => interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
-    //   .then(function(api_results){
-    //     trend_names.push(trend_name);
-    //     promises.push(api_results);
-    //   })
-    //   .catch(function(err){
-    //     var wait_seconds = 60;
-    //     var waitTill = new Date(new Date().getTime() + wait_seconds * 1000);
-    //     while(waitTill > new Date()){}
-    //     --i;
-    //   })
-    // );
+    var success = true
+ 
     await interestOverTime(result[i].Trend, result[i].startDate, result[i].endDate)
       .then(function(api_results){
         trend_names.push(trend_name);
@@ -99,13 +90,18 @@ new Promise(function(resolve, reject) {
 
         console.log('promise rejected')
         console.log(err)
-        var wait_seconds = 60;
-        // nasty hack to wait
-        var waitTill = new Date(new Date().getTime() + wait_seconds * 1000);
-        while(waitTill > new Date()){}
-        // decrement index because we have to query it again
-        --i;
+        // // decrement index because we have to query it again
+        // --i;
+        success = false
       });
+
+      if(!success)
+        break
+
+      // nasty hack to wait
+      var wait_seconds = 1
+      var waitTill = new Date(new Date().getTime() + wait_seconds * 1000)
+      while(waitTill > new Date()){}
   }
   return Promise.all(promises)
 

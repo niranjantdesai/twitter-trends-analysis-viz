@@ -108,7 +108,4 @@ data/
 
 # VS Code
 .vscode
-timeStamps.csv
-timeStamps_small.csv
-out.csv
-outputfile.csv
+*.csv

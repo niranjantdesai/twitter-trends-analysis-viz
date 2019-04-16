@@ -7,7 +7,7 @@ google.index = list(range(len))
 google.reset_index(level=0, inplace=True)
 google.rename(columns={'index': 'google_index'}, inplace=True)
 common = pd.merge(wiki, google, how='inner', on='trend')
-export_csv = common.to_csv('dataframe.csv')
+# export_csv = common.to_csv('dataframe.csv')
 new_wiki = common.loc[:, 'wiki_id':'mean']
 temp_1 = common.loc[:, 'trend']
 temp_3 = common.loc[:, 'google_index']

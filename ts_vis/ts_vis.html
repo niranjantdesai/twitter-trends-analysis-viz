@@ -5,24 +5,240 @@
         <meta charset="utf-8">
         <title>ts_vis</title>
         <script type="text/javascript" src="./lib/d3.v5.min.js"></script>
+        <script src="./lib/pageviews.min.js"></script>
         <style type="text/css">
           .line {
             fill: none;
             stroke: steelblue;
-            stroke-width: 2px;
+            stroke-width: 3px;
+          }
+          .area {
+            fill: lightsteelblue;
+            stroke-width: 0;
+          }
+          .dot {
+            stroke: #000;
+          }
+          .grid line {
+            stroke: lightgrey;
+            stroke-opacity: 0.2;
+            shape-rendering: crispEdges;
+          }
+
+          .grid path {
+            stroke-width: 0;
           }
         </style>
     </head>
 
     <body>
       <script type="text/javascript">
+        var current_term;
+        var wiki_data;
+        var mentions;
+        var trans_dur = 0;
+        var trending_dates;
 
-        //TODO:
-        //d3.nest() on dates of wikidata, grouping trends by date
-        //Date selection (dropdown menu?)
-        //Select trend(s) to display
-        //Make line plots
-        //Incorporate duration prediction
+        //const googleTrends = require('google-trends-api');
+        var margin = {top: 60, right: 70, bottom: 90, left:100}, width = 900 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
+
+        var xScale = d3.scaleTime().range([0, width]);
+        var yScale = d3.scaleLinear().range([height, 0]);
+
+        // gridlines in x axis function
+        function make_x_gridlines() {
+            return d3.axisBottom(xScale)
+                .ticks()
+        }
+
+        // gridlines in y axis function
+        function make_y_gridlines() {
+            return d3.axisLeft(yScale)
+                .ticks()
+        }
+
+        var popline = d3.line()
+          .x(function(d) { return xScale(d.date); })
+          .y(function(d) { return yScale(d.views); });
+
+        var area = d3.area()
+          .defined(function(d) {return show_shade(d.date);})
+          .x(function(d) { return xScale(d.date); })
+          .y0(height)
+          .y1(function(d) { return yScale(d.views); });
+
+        var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        function make_graph(data, mentions) {
+
+          clean_canvas();
+
+          xScale.domain(d3.extent(data, d => d.date));
+
+          yScale.domain([0, d3.max(data, d => d.views)]);
+
+          svg.append("g")
+            .attr("class", "grid")
+            .attr("transform", "translate(0," + height + ")")
+            .call(make_x_gridlines()
+                .tickSize(-height)
+                .tickFormat("")
+            )
+          svg.append("g")
+              .attr("class", "grid")
+              .call(make_y_gridlines()
+                  .tickSize(-width)
+                  .tickFormat("")
+              )
+          // Make the changes
+          // svg.select(".line")   // change the line
+          //     .transition()
+          //     .duration(trans_dur)
+          //     .attr("d", popline(data));
+
+          // svg.append("path")
+          //   .datum(data)
+          //   .attr("class", "area")
+          //   .attr("d", area);
+
+          // svg.select(".y.axis") // change the y axis
+          //     .transition()
+          //     .call(d3.axisLeft(yScale));
+
+          // svg.select(".x.axis") // change the y axis
+          //   .transition()
+          //   .call(d3.axisBottom(xScale));
+          //
+          svg.append("path")
+            .attr("class", "line")
+            .attr("d", popline(data));
+
+          svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(xScale));
+
+          svg.append("g")
+            .attr("class", "y axis")
+            .call(d3.axisLeft(yScale));
+
+          svg.append("text")
+            .attr("transform",
+                  "translate(" + (width/2) + " ," +
+                                 (height + margin.top) + ")")
+            .style("text-anchor", "middle")
+            .text("Date");
+
+          svg.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 0 - margin.left)
+              .attr("x",0 - (height / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .text("Wikipedia Page Views");
+
+
+          trending_dates = []
+          mentions.forEach(function(e){
+            trending_dates.push(e.date)
+          })
+
+          //console.log(trending_dates)
+
+          newmentions = data.slice();
+          var filtered_data = newmentions.filter(function(value, index, arr){
+            return show_shade(value.date)
+          });
+
+        svg.selectAll("dot")
+          .data(filtered_data)
+          .enter().append("circle")
+          .attr("r", 4)
+          .attr("cx", function(d) {return xScale(d.date);})
+          .attr("cy", function(d) {return yScale(d.views);})
+
+
+        }
+
+
+        function show_shade(pop_date) {
+          var result = false
+          for(var i=0; i<trending_dates.length;i++) {
+            if(pop_date.getMonth() === trending_dates[i].getMonth() && pop_date.getDate() === trending_dates[i].getDate() && pop_date.getFullYear() === trending_dates[i].getFullYear()) {
+              result = true;
+              break;
+            }
+          }
+          return result;
+        }
+
+        function init_graph() {
+
+          clean_canvas()
+
+          data = {date: new Date("03/09/2017"), views: -1}
+
+          xScale.domain(d3.extent(data, d => d.date));
+          yScale.domain([0, d3.max(data, d => d.views)]);
+
+          svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(xScale));
+
+          svg.append("g")
+            .attr("class", "y axis")
+            .call(d3.axisLeft(yScale));
+
+          svg.append("path")
+            .attr("class", "line")
+            .attr("d", popline(data));
+
+          svg.append("text")
+          .attr("x", (width-margin.left-margin.right)/2)
+          .attr("y", height/2)
+          .style("text-anchor", "middle")
+          .text("Enter query below");
+
+        }
+
+
+
+        function onClick(event) {
+          current_term = document.getElementById("searchVal").value;
+          mentions = wiki_data.filter(d => d.wtrend == current_term)
+          let times = d3.extent(mentions.map(d => d.date));
+          start_date = new Date(times[0] - 15 * 24 * 60 * 60 * 1000)
+          end_date = new Date(times[1])
+          end_date.setDate(end_date.getDate() + 15)
+          //console.log(end_date)
+          pageviews.getPerArticlePageviews({
+            article: current_term,
+            project: 'en.wikipedia',
+            start: start_date,  // YYYYMMDD string or Date object
+            end: end_date,  // YYYYMMDD string or Date object
+          }).then(function(result) {
+            let popularity = result.items.map(function(d) {
+              return {
+                'views': d.views,
+                'date': toDate(d.timestamp)
+              };
+            });
+            //console.log(popularity);
+            make_graph(popularity, mentions);
+            //console.log(result);
+            //console.log(mentions);
+          }).catch(function(error) {
+            console.log(error);
+            init_graph();
+          });
+          console.log("%c" + document.getElementById("searchVal").value, 'color: #bada55')
+          return false;
+        }
 
         var promises = [
           d3.csv("wiki_timeseries_sample.csv", function(d) {
@@ -31,32 +247,71 @@
 
               date: new Date(d.date),
 
-              views: [+d["t-15"],+d["t-14"],+d["t-13"],+d["t-12"],+d["t-11"],
-                +d["t-10"],+d["t-9"],+d["t-8"],+d["t-7"],+d["t-6"],+d["t-5"],
-                +d["t-4"],+d["t-3"],+d["t-2"],+d["t-1"],+d["t0"],+d["t+1"],
-                +d["t+2"],+d["t+3"],+d["t+4"],+d["t+5"],+d["t+6"],+d["t+7"],
-                +d["t+8"],+d["t+9"],+d["t+10"],+d["t+11"],+d["t+12"],+d["t+13"],
-                +d["t+14"],+d["t+15"]]
-            };}),
+              views: [+d["t-15"], +d["t-14"], +d["t-13"], +d["t-12"], +d["t-11"],
+                +d["t-10"], +d["t-9"], +d["t-8"], +d["t-7"], +d["t-6"], +d["t-5"],
+                +d["t-4"], +d["t-3"], +d["t-2"], +d["t-1"], +d["t0"], +d["t+1"],
+                +d["t+2"], +d["t+3"], +d["t+4"], +d["t+5"], +d["t+6"], +d["t+7"],
+                +d["t+8"], +d["t+9"], +d["t+10"], +d["t+11"], +d["t+12"], +d["t+13"],
+                +d["t+14"], +d["t+15"]
+              ]
+            };
+          }),
 
           d3.csv("google_sample.csv", function(d) {
             return {
               gtrend: d.trend,
 
-              interest: [+d["t-15"],+d["t-14"],+d["t-13"],+d["t-12"],+d["t-11"],
-                +d["t-10"],+d["t-9"],+d["t-8"],+d["t-7"],+d["t-6"],+d["t-5"],
-                +d["t-4"],+d["t-3"],+d["t-2"],+d["t-1"],+d["t"]]
-            };}),
+              interest: [+d["t-15"], +d["t-14"], +d["t-13"], +d["t-12"], +d["t-11"],
+                +d["t-10"], +d["t-9"], +d["t-8"], +d["t-7"], +d["t-6"], +d["t-5"],
+                +d["t-4"], +d["t-3"], +d["t-2"], +d["t-1"], +d["t"]
+              ]
+            };
+          }),
         ]
 
         Promise.all(promises)
-        .then(function([wiki, google]) {
-          console.log(wiki)
-          console.log(google)
-        })
+          .then(function([wiki, google]) {
+            wiki_data = wiki
+            var wiki_by_trend = d3.nest()
+              .key(function(d) {
+                return d.wtrend;
+              })
+              .entries(wiki);
+
+            console.log(wiki_by_trend)
+
+          })
+
+        function toDate(str_date) {
+          var year = str_date.substring(0, 4);
+          var month = str_date.substring(4, 6);
+          var day = str_date.substring(6, 8);
+
+          return new Date(year, month - 1, day);
+        }
+        function is_same_date(date1, date2) {
+          if(date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate() && date1.getFullYear() === date2.getFullYear()) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+
+        function clean_canvas() {
+          svg.selectAll(".line").remove()
+          svg.selectAll(".x.axis").remove()
+          svg.selectAll(".y.axis").remove()
+          svg.selectAll("text").remove()
+          svg.selectAll("circle").remove()
+          svg.selectAll(".grid").remove()
+
+        }
 
 
+        init_graph();
 
       </script>
+      <button type="button" onclick="onClick()">Click Me!</button>
+      <input type="text" id="searchVal" placeholder="Add some text&hellip;">
     </body>
 </html>

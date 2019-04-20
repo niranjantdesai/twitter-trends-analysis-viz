@@ -86,21 +86,40 @@ d3.csv("nlpGraph.csv", function(d){
           .attr("class", "legend")
           .enter().append("rect")
           .attr("height", legend_height)
-          .attr("x", function(d) {  return width - margin.left - 80; })
+          .attr("x", function(d) {  return width - margin.left - 160; })
           .attr("y", function(d, i) {  return start += legend_height  })
           .attr("width", function(d) { return 40; })
           .attr("fill", function(d){ return d});
   var start = 140;
 
   for (var i = 0; i < legend_labels.length; i ++){
+
+          if (i < legend_labels.length - 1){
               svg.append("text")
-                .attr("x", width - margin.left - 30 )
+                .attr("x", width - margin.left - 100 )
                 .attr("y", start += legend_height )
                 .attr("font-size", "15px")
                 .text(legend_labels[i]);
+              }
+
+              else{
+                svg.append("text")
+                .attr("x", width - margin.left - 100 )
+                .attr("y", start += legend_height )
+                .attr("font-size", "15px")
+                .text(">" + legend_labels[i]);
+
+              }
 
 
           }
+
+    d3.select('svg').append("text")
+            .attr("class", "title")
+            .attr("x", width - margin.left - 160 )
+            .attr("y", 130)
+            .attr("font-size", "30px")
+            .text("NLP Semantic Similarity");
 
 
 
@@ -123,7 +142,7 @@ d3.csv("nlpGraph.csv", function(d){
 
     var force = d3.forceSimulation()
         .nodes(d3.values(nodes))
-        .force("link", d3.forceLink(links).distance(120))
+        .force("link", d3.forceLink(links).distance(140))
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force("x", d3.forceX())
         .force("y", d3.forceY())

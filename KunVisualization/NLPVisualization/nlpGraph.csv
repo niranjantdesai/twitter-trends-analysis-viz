@@ -1,166 +1,153 @@
 ,source,target,value
-0,Devin Bush,John O'Korn,1.1529457555219509
-1,Devin Bush,Jim McElwain,1.1830868178453529
-2,Devin Bush,Andy Pappanastos,1.0888702275355477
-3,Devin Bush,Elijah Sindelar,0.9523748009349607
-4,Devin Bush,Kerryon Johnson,0.9921033952275139
-5,Devin Bush,Sam Darnold,0.9130463302465021
-6,Devin Bush,Kasen Williams,1.0825576466288924
-7,Ty Isaac,Jim McElwain,0.9064582949418598
-8,Ty Isaac,Andy Pappanastos,0.9251673639626543
-9,Ty Isaac,Elijah Sindelar,0.9553348812319918
-10,Ty Isaac,Sam Darnold,0.930444683941418
-11,#Terps,Kasen Williams,0.9197368637471667
-12,Alex Barnes,John O'Korn,1.118420700148911
-13,Alex Barnes,Jim McElwain,1.203206089733145
-14,Alex Barnes,Marcus Stroman,1.1154032014124042
-15,Alex Barnes,Andy Pappanastos,1.294738690708979
-16,Alex Barnes,Elijah Sindelar,1.1485000525678377
-17,Alex Barnes,Kerryon Johnson,1.1476883375430575
-18,Alex Barnes,Sam Darnold,0.9879942527536643
-19,Alex Barnes,Kasen Williams,1.18430454606379
-20,Nick Chubb,John O'Korn,0.9922452622421621
-21,Nick Chubb,Jim McElwain,1.080998889349312
-22,Nick Chubb,Marcus Stroman,0.9238190339105629
-23,Nick Chubb,Andy Pappanastos,1.125986154275301
-24,Nick Chubb,Elijah Sindelar,0.9029736894692366
-25,Nick Chubb,Kerryon Johnson,0.9209932055013061
-26,Nick Chubb,Kasen Williams,1.0064933280328112
-27,Sony Michel,John O'Korn,1.2033697478624734
-28,Sony Michel,Jim McElwain,1.227333698235473
-29,Sony Michel,Marcus Stroman,0.9352989191170097
-30,Sony Michel,Andy Pappanastos,1.0925943855590676
-31,Sony Michel,Kerryon Johnson,1.120052975318
-32,Sony Michel,Sam Darnold,1.0030004377476198
-33,Sony Michel,Kasen Williams,1.1190075141270595
-34,Jake Bentley,Jim McElwain,1.0046613378530804
-35,Jake Bentley,Andy Pappanastos,0.9700358091121324
-36,Jake Bentley,Kasen Williams,0.9084613868447837
-37,Broncos,Jim McElwain,0.9438202936043458
-38,Broncos,Andy Pappanastos,0.903282065807452
-39,Broncos,Kasen Williams,0.9899726724574845
-40,Lance Lynn,John O'Korn,0.9127174237146801
-41,Lance Lynn,Andy Pappanastos,0.9445425068518806
-42,Lance Lynn,Kasen Williams,0.9286106544648571
-43,Purdue,Jim McElwain,0.9926675310687227
-44,Purdue,#Sooners,1.0000000591089058
-45,Purdue,Kerryon Johnson,0.9471958193203973
-46,Purdue,Kasen Williams,0.9973897829714115
-47,Tom Herman,John O'Korn,1.114066575095213
-48,Tom Herman,Jim McElwain,1.191896446670722
-49,Tom Herman,Marcus Stroman,1.0185249814174933
-50,Tom Herman,Andy Pappanastos,1.0410057453477564
-51,Tom Herman,Elijah Sindelar,1.038639983057039
-52,Tom Herman,Kerryon Johnson,0.9698974568477259
-53,Tom Herman,Sam Darnold,1.0367152834940474
-54,Tom Herman,Kasen Williams,1.0089465206216057
-55,Justin Turner,John O'Korn,1.0635432110475294
-56,Justin Turner,Jim McElwain,1.1230152745443527
-57,Justin Turner,Marcus Stroman,0.9956834746107508
-58,Justin Turner,Andy Pappanastos,1.1376437544700293
-59,Justin Turner,Elijah Sindelar,0.9779169927014093
-60,Justin Turner,Kerryon Johnson,1.0172552310602367
-61,Justin Turner,Sam Darnold,0.9951807568804515
-62,Justin Turner,Kasen Williams,1.1606181914899887
-63,Dexter Williams,John O'Korn,1.1336469121060446
-64,Dexter Williams,Jim McElwain,1.1682538467940446
-65,Dexter Williams,Marcus Stroman,1.0110081589296664
-66,Dexter Williams,Andy Pappanastos,1.2189553835898304
-67,Dexter Williams,Elijah Sindelar,1.0586718617407238
-68,Dexter Williams,Kerryon Johnson,1.1242736945546872
-69,Dexter Williams,Sam Darnold,0.9996988261551422
-70,Dexter Williams,Kasen Williams,1.4137194371464248
-71,Stony Brook,Jim McElwain,0.9308019165691267
-72,Lamar Jackson,John O'Korn,1.0887076660773145
-73,Lamar Jackson,Jim McElwain,1.1927194535354917
-74,Lamar Jackson,Marcus Stroman,0.9719241929437744
-75,Lamar Jackson,Andy Pappanastos,1.0632187789086054
-76,Lamar Jackson,Elijah Sindelar,1.1400853840689649
-77,Lamar Jackson,Kerryon Johnson,1.1974154602543687
-78,Lamar Jackson,Sam Darnold,0.9705408156062857
-79,Lamar Jackson,Kasen Williams,1.3181923832745264
-80,Arkansas State,NC State,0.9079483780444724
-81,Chris Archer,John O'Korn,1.0156803636055987
-82,Chris Archer,Jim McElwain,1.1003237397252712
-83,Chris Archer,Marcus Stroman,0.9698827085063464
-84,Chris Archer,Andy Pappanastos,1.0790957025766894
-85,Chris Archer,Elijah Sindelar,0.9258590627194601
-86,Chris Archer,Kerryon Johnson,0.937471114750137
-87,Chris Archer,Kasen Williams,1.0130444341618634
-88,Shaun Dion Hamilton,John O'Korn,1.1160209449114098
-89,Shaun Dion Hamilton,Jim McElwain,1.253283858581081
-90,Shaun Dion Hamilton,Marcus Stroman,1.0237394619824498
-91,Shaun Dion Hamilton,Andy Pappanastos,1.1958336291315061
-92,Shaun Dion Hamilton,Elijah Sindelar,1.0672705175124706
-93,Shaun Dion Hamilton,Kerryon Johnson,1.1067568652911217
-94,Shaun Dion Hamilton,Sam Darnold,0.9921817269925981
-95,Shaun Dion Hamilton,Kasen Williams,1.236545975742472
-96,Francois,John O'Korn,0.955396857035958
-97,Francois,Jim McElwain,1.0398892776210533
-98,Francois,Marcus Stroman,0.9609838854403913
-99,Francois,Andy Pappanastos,0.9156835476491868
-100,Francois,Elijah Sindelar,0.9961878805561036
-101,Francois,Kerryon Johnson,0.9359600318648927
-102,Francois,Kasen Williams,0.9387369830022284
-103,Daniel Carlson,John O'Korn,1.2444163396070915
-104,Daniel Carlson,Jim McElwain,1.330458133723162
-105,Daniel Carlson,Marcus Stroman,1.133219531551536
-106,Daniel Carlson,Andy Pappanastos,1.3201164867491908
-107,Daniel Carlson,Elijah Sindelar,1.2156783527060444
-108,Daniel Carlson,Kerryon Johnson,1.1955647183483107
-109,Daniel Carlson,Sam Darnold,1.0293155196309276
-110,Daniel Carlson,Kasen Williams,1.3186939822044195
-111,Tanner Lee,Jim McElwain,0.9180939995026153
-112,Tanner Lee,Kerryon Johnson,0.9339232455705498
-113,Keith Gavin,John O'Korn,1.1410690492552924
-114,Keith Gavin,Jim McElwain,1.2249849874233036
-115,Keith Gavin,Marcus Stroman,1.058044223176024
-116,Keith Gavin,Andy Pappanastos,1.2276650923295518
-117,Keith Gavin,Elijah Sindelar,1.050839925345764
-118,Keith Gavin,Kerryon Johnson,0.9899431782284372
-119,Keith Gavin,Kasen Williams,1.1330175385276644
-120,#Sooners,Jim McElwain,0.9926675310687227
-121,#Sooners,Purdue,1.0000000591089058
-122,#Sooners,Kerryon Johnson,0.9471958193203973
-123,#Sooners,Kasen Williams,0.9973897829714115
-124,Florida State,NC State,0.9373408202809954
-125,Florida State,Arkansas State,0.9209728127481782
-126,Ronald Jones,John O'Korn,1.2907698452019458
-127,Ronald Jones,Jim McElwain,1.4543702985827005
-128,Ronald Jones,Marcus Stroman,1.0639472402049166
-129,Ronald Jones,Andy Pappanastos,1.1807008030099053
-130,Ronald Jones,Elijah Sindelar,1.17924221106884
-131,Ronald Jones,Kerryon Johnson,1.210441262427867
-132,Ronald Jones,Sam Darnold,1.0202081687414615
-133,Ronald Jones,Kasen Williams,1.356795444452038
-134,Speight,John O'Korn,1.0388588143008999
-135,Speight,Jim McElwain,1.161087195158892
-136,Speight,Marcus Stroman,1.0407899531442502
-137,Speight,Andy Pappanastos,1.1053593341698449
-138,Speight,Elijah Sindelar,1.17001207713985
-139,Speight,Kerryon Johnson,1.0520642169581544
-140,Speight,Kasen Williams,1.152663606470368
-141,Jimbo,Marcus Stroman,0.9808158298531058
-142,Jimbo,Andy Pappanastos,0.9338608802416225
-143,Jimbo,Elijah Sindelar,0.9359890424485406
-144,Derwin James,John O'Korn,0.9399006793168339
-145,Derwin James,Jim McElwain,1.0384021063105795
-146,Derwin James,Marcus Stroman,0.9524655180379739
-147,Derwin James,Andy Pappanastos,0.9752410375458872
-148,Derwin James,Elijah Sindelar,1.0100347204166746
-149,Jake Olson,John O'Korn,1.138612637846622
-150,Jake Olson,Jim McElwain,1.2629731414358307
-151,Jake Olson,Marcus Stroman,1.0098938940154634
-152,Jake Olson,Andy Pappanastos,1.2703689293255294
-153,Jake Olson,Elijah Sindelar,1.0336032785922078
-154,Jake Olson,Kerryon Johnson,1.032140309286045
-155,Jake Olson,Sam Darnold,1.0407498634240049
-156,Jake Olson,Kasen Williams,1.1005036265897632
-157,Damien Harris,John O'Korn,1.1499765789552863
-158,Damien Harris,Jim McElwain,1.247956093276601
-159,Damien Harris,Marcus Stroman,0.9934383139627294
-160,Damien Harris,Andy Pappanastos,1.2605170044042702
-161,Damien Harris,Elijah Sindelar,1.0469117970699044
-162,Damien Harris,Kerryon Johnson,1.1070862833364337
-163,Damien Harris,Sam Darnold,1.0139036601009406
-164,Damien Harris,Kasen Williams,1.2050807417250178
+0,#Terps,Purdue,0.7482579461879222
+1,#Terps,#Sooners,0.7482579461879222
+2,Alex Barnes,Nick Chubb,0.7250483336293453
+3,Alex Barnes,Dexter Williams,0.7039880136919263
+4,Alex Barnes,Andy Pappanastos,0.7262012839115467
+5,Alex Barnes,Shaun Dion Hamilton,0.7845724005028609
+6,Alex Barnes,Daniel Carlson,0.7696135738140133
+7,Alex Barnes,Kerryon Johnson,0.7056534187613487
+8,Alex Barnes,Ronald Jones,0.741296346825809
+9,Alex Barnes,Kasen Williams,0.7112334898048284
+10,Alex Barnes,Jake Olson,0.714298167507227
+11,Alex Barnes,Damien Harris,0.7382528121448094
+12,Nick Chubb,Alex Barnes,0.7250483336293453
+13,Nick Chubb,Shaun Dion Hamilton,0.7148926264135549
+14,Nick Chubb,Damien Harris,0.7079684103520059
+15,John O'Korn,Jim McElwain,0.7768292040371124
+16,John O'Korn,Shaun Dion Hamilton,0.7208455879795754
+17,John O'Korn,Daniel Carlson,0.7356953617029286
+18,John O'Korn,Kerryon Johnson,0.7129923401240468
+19,John O'Korn,Ronald Jones,0.7654341355800133
+20,John O'Korn,Kasen Williams,0.7254369524561645
+21,John O'Korn,Damien Harris,0.7230497014172589
+22,Jake Bentley,Jake Olson,0.7285337390007878
+23,Jim McElwain,John O'Korn,0.7768292040371124
+24,Jim McElwain,Shaun Dion Hamilton,0.7478385869613702
+25,Jim McElwain,Daniel Carlson,0.7266446024789228
+26,Jim McElwain,Ronald Jones,0.7967509121156314
+27,Jim McElwain,Kasen Williams,0.7115814782115878
+28,Jim McElwain,Jake Olson,0.7148331652865684
+29,Jim McElwain,Damien Harris,0.7248814524380877
+30,Purdue,#Terps,0.7482579461879222
+31,Purdue,#Sooners,1.0000000591089058
+32,NC State,Arkansas State,0.896135976146736
+33,NC State,Florida State,0.8909278064746268
+34,Tom Herman,Daniel Carlson,0.7122893393810431
+35,Justin Turner,Shaun Dion Hamilton,0.7692910029587098
+36,Justin Turner,Daniel Carlson,0.7277303003980777
+37,Justin Turner,Keith Gavin,0.7036188525594247
+38,Justin Turner,Kasen Williams,0.7053149023410833
+39,Justin Turner,Jake Olson,0.7341766799416766
+40,Justin Turner,Damien Harris,0.7226635338822269
+41,Dexter Williams,Alex Barnes,0.7039880136919263
+42,Dexter Williams,Lamar Jackson,0.7039069359518695
+43,Dexter Williams,Shaun Dion Hamilton,0.7552892294084727
+44,Dexter Williams,Daniel Carlson,0.7555286170302965
+45,Dexter Williams,Ronald Jones,0.7404559084498805
+46,Dexter Williams,Kasen Williams,0.8440376624080306
+47,Dexter Williams,Jake Olson,0.7108562118751027
+48,Dexter Williams,Damien Harris,0.7432013540300768
+49,Lamar Jackson,Dexter Williams,0.7039069359518695
+50,Lamar Jackson,Kasen Williams,0.7143941396539892
+51,Arkansas State,NC State,0.896135976146736
+52,Arkansas State,Florida State,0.886909071678548
+53,Arkansas State,Western Michigan,0.7066261171878209
+54,Andy Pappanastos,Alex Barnes,0.7262012839115467
+55,Andy Pappanastos,Shaun Dion Hamilton,0.7027629890837204
+56,Andy Pappanastos,Daniel Carlson,0.7100889472787693
+57,Andy Pappanastos,Jake Olson,0.7081415871675008
+58,Andy Pappanastos,Damien Harris,0.721100795795125
+59,Shaun Dion Hamilton,Alex Barnes,0.7845724005028609
+60,Shaun Dion Hamilton,Nick Chubb,0.7148926264135549
+61,Shaun Dion Hamilton,John O'Korn,0.7208455879795754
+62,Shaun Dion Hamilton,Jim McElwain,0.7478385869613702
+63,Shaun Dion Hamilton,Justin Turner,0.7692910029587098
+64,Shaun Dion Hamilton,Dexter Williams,0.7552892294084727
+65,Shaun Dion Hamilton,Andy Pappanastos,0.7027629890837204
+66,Shaun Dion Hamilton,Daniel Carlson,0.7892160084805493
+67,Shaun Dion Hamilton,Keith Gavin,0.783076089077944
+68,Shaun Dion Hamilton,Kerryon Johnson,0.7129891777224964
+69,Shaun Dion Hamilton,Ronald Jones,0.7903241967300452
+70,Shaun Dion Hamilton,Kasen Williams,0.7780763807370034
+71,Shaun Dion Hamilton,Jake Olson,0.7554084064029737
+72,Shaun Dion Hamilton,Damien Harris,0.7719539035339882
+73,Daniel Carlson,Alex Barnes,0.7696135738140133
+74,Daniel Carlson,John O'Korn,0.7356953617029286
+75,Daniel Carlson,Jim McElwain,0.7266446024789228
+76,Daniel Carlson,Tom Herman,0.7122893393810431
+77,Daniel Carlson,Justin Turner,0.7277303003980777
+78,Daniel Carlson,Dexter Williams,0.7555286170302965
+79,Daniel Carlson,Andy Pappanastos,0.7100889472787693
+80,Daniel Carlson,Shaun Dion Hamilton,0.7892160084805493
+81,Daniel Carlson,Keith Gavin,0.7342457303989783
+82,Daniel Carlson,Kerryon Johnson,0.7049627137088883
+83,Daniel Carlson,Ronald Jones,0.771230266479454
+84,Daniel Carlson,Kasen Williams,0.7594835416322663
+85,Daniel Carlson,Jake Olson,0.765183581914699
+86,Daniel Carlson,Damien Harris,0.7605301818476553
+87,Keith Gavin,Justin Turner,0.7036188525594247
+88,Keith Gavin,Shaun Dion Hamilton,0.783076089077944
+89,Keith Gavin,Daniel Carlson,0.7342457303989783
+90,Keith Gavin,Ronald Jones,0.7080616577496301
+91,Keith Gavin,Jake Olson,0.704817500117309
+92,Keith Gavin,Damien Harris,0.7549005662588981
+93,JD Spielman,Derwin James,0.7381149742082161
+94,#Sooners,#Terps,0.7482579461879222
+95,#Sooners,Purdue,1.0000000591089058
+96,Florida State,NC State,0.8909278064746268
+97,Florida State,Arkansas State,0.886909071678548
+98,Florida State,Western Michigan,0.7220988386346437
+99,Kerryon Johnson,Alex Barnes,0.7056534187613487
+100,Kerryon Johnson,John O'Korn,0.7129923401240468
+101,Kerryon Johnson,Shaun Dion Hamilton,0.7129891777224964
+102,Kerryon Johnson,Daniel Carlson,0.7049627137088883
+103,Kerryon Johnson,Ronald Jones,0.7159182719711145
+104,Kerryon Johnson,Kasen Williams,0.7408484241943759
+105,Ronald Jones,Alex Barnes,0.741296346825809
+106,Ronald Jones,John O'Korn,0.7654341355800133
+107,Ronald Jones,Jim McElwain,0.7967509121156314
+108,Ronald Jones,Dexter Williams,0.7404559084498805
+109,Ronald Jones,Shaun Dion Hamilton,0.7903241967300452
+110,Ronald Jones,Daniel Carlson,0.771230266479454
+111,Ronald Jones,Keith Gavin,0.7080616577496301
+112,Ronald Jones,Kerryon Johnson,0.7159182719711145
+113,Ronald Jones,Kasen Williams,0.7838183411559122
+114,Ronald Jones,Damien Harris,0.7245708710227701
+115,Kasen Williams,Alex Barnes,0.7112334898048284
+116,Kasen Williams,John O'Korn,0.7254369524561645
+117,Kasen Williams,Jim McElwain,0.7115814782115878
+118,Kasen Williams,Justin Turner,0.7053149023410833
+119,Kasen Williams,Dexter Williams,0.8440376624080306
+120,Kasen Williams,Lamar Jackson,0.7143941396539892
+121,Kasen Williams,Shaun Dion Hamilton,0.7780763807370034
+122,Kasen Williams,Daniel Carlson,0.7594835416322663
+123,Kasen Williams,Kerryon Johnson,0.7408484241943759
+124,Kasen Williams,Ronald Jones,0.7838183411559122
+125,Kasen Williams,Damien Harris,0.7381377203867817
+126,Western Michigan,Arkansas State,0.7066261171878209
+127,Western Michigan,Florida State,0.7220988386346437
+128,Derwin James,JD Spielman,0.7381149742082161
+129,Jake Olson,Alex Barnes,0.714298167507227
+130,Jake Olson,Jake Bentley,0.7285337390007878
+131,Jake Olson,Jim McElwain,0.7148331652865684
+132,Jake Olson,Justin Turner,0.7341766799416766
+133,Jake Olson,Dexter Williams,0.7108562118751027
+134,Jake Olson,Andy Pappanastos,0.7081415871675008
+135,Jake Olson,Shaun Dion Hamilton,0.7554084064029737
+136,Jake Olson,Daniel Carlson,0.765183581914699
+137,Jake Olson,Keith Gavin,0.704817500117309
+138,Jake Olson,Damien Harris,0.7253650718159687
+139,Damien Harris,Alex Barnes,0.7382528121448094
+140,Damien Harris,Nick Chubb,0.7079684103520059
+141,Damien Harris,John O'Korn,0.7230497014172589
+142,Damien Harris,Jim McElwain,0.7248814524380877
+143,Damien Harris,Justin Turner,0.7226635338822269
+144,Damien Harris,Dexter Williams,0.7432013540300768
+145,Damien Harris,Andy Pappanastos,0.721100795795125
+146,Damien Harris,Shaun Dion Hamilton,0.7719539035339882
+147,Damien Harris,Daniel Carlson,0.7605301818476553
+148,Damien Harris,Keith Gavin,0.7549005662588981
+149,Damien Harris,Ronald Jones,0.7245708710227701
+150,Damien Harris,Kasen Williams,0.7381377203867817
+151,Damien Harris,Jake Olson,0.7253650718159687

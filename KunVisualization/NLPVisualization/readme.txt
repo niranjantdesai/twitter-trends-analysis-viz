@@ -1,5 +1,6 @@
 ReadMe:
 depends on ../lib/d3.v5.min.js
+html opens with firefox 6.5+
 
 python script requires
 spacy

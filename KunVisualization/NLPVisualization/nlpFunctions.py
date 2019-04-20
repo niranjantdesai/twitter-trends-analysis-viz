@@ -10,6 +10,7 @@ import numpy as np
 from numpy import isnan
 import pandas as pd
 
+
 np.seterr(divide='ignore', invalid='ignore')
 nlp = spacy.load('en_core_web_md')
 
@@ -75,7 +76,7 @@ def getComparisonList(dateArray):
     return retList
 
 def createGraphCSV(retList, simMatrix):
-    threshold = .9
+    threshold = .7
     source = []
     target = []
     value = []
@@ -96,13 +97,43 @@ def createGraphCSV(retList, simMatrix):
     
     graphDF.to_csv("nlpGraph.csv")
             
-            
+       
+
+     
+def getSim(tagList):
+    ret = []
     
+    
+    for i in range(len(tagList)):
+        print(i)
+        tempList = []
+        for j in range(len(tagList)):
+            token = nlp(tagList[i].replace("#",""))
+            token2 = nlp(tagList[j].replace("#",""))
+            tempList.append(token.similarity(token2))
+        
+        ret.append(tempList)
+        
+    
+    return ret
+
+
+            
+
+
+
 
 if __name__ == "__main__":
+    
+# =============================================================================
+#     token = nlp("NC State")
+#     token2 = nlp("Florida State")
+#     print(token.similarity(token2))
+#     dateArray = ["9/3/17 0:00"]
+# =============================================================================
     dateArray = ["9/3/17 0:00", "9/3/17 1:00"]
     retList = getComparisonList(dateArray)
-    simMatrix = getSimilarityOfList(retList)
+    simMatrix = getSim(retList)
     createGraphCSV(retList, simMatrix)
     
     

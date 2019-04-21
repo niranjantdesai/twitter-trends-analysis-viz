@@ -39,6 +39,68 @@
             border-radius: 4px;
             font-size: 12px;
           }
+          * {
+            box-sizing: border-box;
+          }
+
+          body {
+            font: 16px Arial;
+          }
+
+          /*the container must be positioned relative:*/
+          .autocomplete {
+            position: relative;
+            display: inline-block;
+          }
+
+          input {
+            border: 1px solid transparent;
+            background-color: #f1f1f1;
+            padding: 10px;
+            font-size: 16px;
+          }
+
+          button {
+            border: 1px solid transparent;
+            background-color: #f1f1f1;
+            padding: 10px;
+            font-size: 16px;
+          }
+
+          input[type=text] {
+            background-color: #f1f1f1;
+            width: 100%;
+          }
+
+          button[type=button] {
+            background-color: DodgerBlue;
+            color: #fff;
+            cursor: pointer;
+          }
+
+          .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+          }
+
+          .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+          }
+
+          /*when hovering an item:*/
+          .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+          }
         </style>
     </head>
 
@@ -250,7 +312,8 @@
 
 
         function onClick(event) {
-          current_term = document.getElementById("searchVal").value;
+          console.log("In Here");
+          current_term = document.getElementById("myInput").value;
           mentions = wiki_data.filter(d => d.wtrend == current_term)
           let times = d3.extent(mentions.map(d => d.date));
           start_date = new Date(times[0] - 15 * 24 * 60 * 60 * 1000)
@@ -269,15 +332,16 @@
                 'date': toDate(d.timestamp)
               };
             });
-            //console.log(popularity);
+
+            console.log(popularity);
             make_graph(popularity, mentions);
             //console.log(result);
             //console.log(mentions);
           }).catch(function(error) {
             console.log(error);
-            init_graph();
+            report_error("Wikipedia does not have usage data");
           });
-          console.log("%c" + document.getElementById("searchVal").value, 'color: #bada55')
+          console.log("%c" + document.getElementById("myInput").value, 'color: #bada55')
           return false;
         }
 
@@ -312,7 +376,9 @@
 
         Promise.all(promises)
           .then(function([wiki, google]) {
-            wiki_data = wiki
+            wiki_data = wiki;
+            wiki_term = wiki.map(d=>d.wtrend);
+            autocomplete(document.getElementById("myInput"), wiki_term);
             var wiki_by_trend = d3.nest()
               .key(function(d) {
                 return d.wtrend;
@@ -346,15 +412,25 @@
           svg.selectAll("circle").remove()
           svg.selectAll(".grid").remove()
           svg.selectAll(".legendOrdinal").remove()
+        }
 
-
+        function report_error(text) {
+          clean_canvas()
+          svg.append("text")
+          .attr("x", (width-margin.left-margin.right)/2)
+          .attr("y", height/2)
+          .style("text-anchor", "middle")
+          .text(text);
         }
 
 
         init_graph();
 
       </script>
-      <button type="button" onclick="onClick()">Click Me!</button>
-      <input type="text" id="searchVal" placeholder="Add some text&hellip;">
+      <script src="autocomplete.js"></script>
+      <div class="autocomplete" style="width:300px;">
+      <input id="myInput" type="text" name="myCountry" placeholder="Country">
+      </div>
+      <button type="button" onclick="onClick()">Submit</button>
     </body>
 </html>

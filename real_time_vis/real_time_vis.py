@@ -3,6 +3,7 @@ import tweepy
 import csv
 import json
 import argparse
+from Naked.toolshed.shell import execute_js, muterun_js
 
 
 def get_twitter_trends(credentials_json):
@@ -51,10 +52,18 @@ def main():
 
     # save Twitter trends to a csv
     keys = trends[0]['trends'][0].keys()
-    with open('twitter_trends.csv', 'w', newline='') as output_file:
+    twitter_file = 'twitter_trends.csv'
+    with open(twitter_file, 'w', newline='') as output_file:
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()
         dict_writer.writerows(trends[0]['trends'])
+
+    # get the Google Trends interest over time for each topic by running a Node JS script
+    success = execute_js('get_google_trends.js', twitter_file)
+    if success:
+        print('Google Trends interest over time saved')
+    else:
+        print('Unable to save Google Trends interest over time, exiting')
 
     # open html file with the visualizations
     # url = "file:///C:/Users/niran/OneDrive%20-%20Georgia%20Institute%20of%20Technology/GaTech/courses/          CSE_6242_Data_and_Visual_Analytics/cse-6242-assignments/hw2-skeleton/Q2/graph.html"

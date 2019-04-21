@@ -3,7 +3,6 @@ import tweepy
 import csv
 import json
 import argparse
-from Naked.toolshed.shell import execute_js, muterun_js
 
 
 def get_twitter_trends(credentials_json):
@@ -18,10 +17,10 @@ def get_twitter_trends(credentials_json):
     """
 
     # # credentials
-    # consumer_key = "NuEI9OAkwNgHnti6RiPY0jeD1"
-    # consumer_secret = "aeqpj93jp0ylBi0iee4MJ2RTGQ4zq0smrRlCPl5X0BMfhvD96q"
-    # access_token = "56968225-Wl4Pr8VHs9epLQm5q5dRhZaiEyGby7GZMGaJa5l2w"
-    # access_token_secret = "IfLiDm5sOd5m5ozK8M4ZIqDAnkOuGQDtxB8KwAHRaGdJM"
+    consumer_key = "NuEI9OAkwNgHnti6RiPY0jeD1"
+    consumer_secret = "aeqpj93jp0ylBi0iee4MJ2RTGQ4zq0smrRlCPl5X0BMfhvD96q"
+    access_token = "56968225-Wl4Pr8VHs9epLQm5q5dRhZaiEyGby7GZMGaJa5l2w"
+    access_token_secret = "IfLiDm5sOd5m5ozK8M4ZIqDAnkOuGQDtxB8KwAHRaGdJM"
 
     # load credentials
     file = open(credentials_json)
@@ -46,24 +45,16 @@ def main():
                         dest='credentials_json',
                         help='json file with Twitter API credentials')
     args = parser.parse_args()
-
+    print(args)
     # get current Twitter trends
     trends = get_twitter_trends(args.credentials_json)
 
     # save Twitter trends to a csv
     keys = trends[0]['trends'][0].keys()
-    twitter_file = 'twitter_trends.csv'
-    with open(twitter_file, 'w', newline='') as output_file:
+    with open('twitter_trends.csv', 'w') as output_file:
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()
         dict_writer.writerows(trends[0]['trends'])
-
-    # get the Google Trends interest over time for each topic by running a Node JS script
-    success = execute_js('get_google_trends.js', twitter_file)
-    if success:
-        print('Google Trends interest over time saved')
-    else:
-        print('Unable to save Google Trends interest over time, exiting')
 
     # open html file with the visualizations
     # url = "file:///C:/Users/niran/OneDrive%20-%20Georgia%20Institute%20of%20Technology/GaTech/courses/          CSE_6242_Data_and_Visual_Analytics/cse-6242-assignments/hw2-skeleton/Q2/graph.html"

@@ -3,8 +3,7 @@ const googleTrends = require('google-trends-api');
 const csv = require('csvtojson');
 var csvWriter = require('csv-write-stream')
 
-const csvFilePath = process.argv[2];
-console.log(csvFilePath);
+const csvFilePath = 'twitter_trends.csv';
 var lookback = 15;
 var dataArray = [];
 var trend_names = [];

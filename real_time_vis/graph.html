@@ -16,6 +16,12 @@
   fill: red;
 }
 
+ .select {
+     position: absolute;
+     top: 40px;
+     left: 415px;
+ }
+
 </style>
 <body>
 
@@ -24,9 +30,9 @@
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 40, bottom: 30, left: 50},
+var margin = {top: 80, right: 40, bottom: 80, left: 50},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 700 - margin.top - margin.bottom;
 
 
 // set the ranges
@@ -152,9 +158,10 @@ var cells = function(trend) {
       .attr("class", "axisSteelBlue")
       .call(d3.axisLeft(y0))
       .append("text")
-      .attr("x", 10)
-      .attr("y", -10)
+      .attr("x", 30)
+      .attr("y", -8)
       .style('fill', 'black')
+      .style("font-size", "14px")
       .text("Wiki Trends");
 
   // Add the Y1 Axis
@@ -164,27 +171,35 @@ var cells = function(trend) {
       .call(d3.axisRight(y1));
 
   svg.append("text")
-      .attr("transform", "translate(" + (width) + " ," +
+      .attr("transform", "translate(" + (width-10) + " ," +
           (-10) + ")")
       .style("text-anchor", "middle")
-      .style("font-size", "20px")
+      .style("font-size", "15px")
       .text("Google Trends")
       .style('fill', 'black');
 
     svg.append("text")
       .attr("transform", "translate(" + (width/2) + " ," +
-          (height+28) + ")")
+          (height+27) + ")")
       .style("text-anchor", "middle")
-      .style("font-size", "20px")
+      .style("font-size", "15px")
         .text('Day')
       .style('fill', 'black');
 
     svg.append("text")
-      .attr("transform", "translate(" + (width+28) + " ," +
-          (height+28) + ")")
+      .attr("transform", "translate(" + (330) + " ," +
+          (-35) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "15px")
+      .text("Trend")
+      .style('fill', 'black');
+
+    svg.append("text")
+      .attr("transform", "translate(" + (width/2) + " ," +
+          (-60) + ")")
       .style("text-anchor", "middle")
       .style("font-size", "20px")
-      .text("Trend")
+      .text("Real-Time Trends")
       .style('fill', 'black');
 
 };

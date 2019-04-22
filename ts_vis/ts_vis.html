@@ -16,7 +16,8 @@
           }
           .area {
             fill: lightsteelblue;
-            stroke-width: 0;
+            stroke-width: 3px;
+            stroke-opacity: 0.2;
           }
           .dot {
             stroke: #000;
@@ -118,6 +119,10 @@
         var xScale = d3.scaleTime().range([0, width]);
         var yScale = d3.scaleLinear().range([height, 0]);
 
+      var symbolScale =  d3.scaleOrdinal()
+        .domain(['Trending on Twitter', 'Trending on Wikipedia'])
+        .range([d3.symbolCircle, d3.symbolSqaure] );
+
         // gridlines in x axis function
         function make_x_gridlines() {
             return d3.axisBottom(xScale)
@@ -135,7 +140,6 @@
           .y(function(d) { return yScale(d.views); });
 
         var area = d3.area()
-          .defined(function(d) {return show_shade(d.date);})
           .x(function(d) { return xScale(d.date); })
           .y0(height)
           .y1(function(d) { return yScale(d.views); });
@@ -186,10 +190,6 @@
           //   .transition()
           //   .call(d3.axisBottom(xScale));
           //
-          svg.append("path")
-            .attr("class", "line")
-            .attr("d", popline(data));
-
           svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
@@ -202,13 +202,13 @@
           svg.append("text")
             .attr("transform",
                   "translate(" + (width/2) + " ," +
-                                 (height + margin.top) + ")")
+                                 (height + margin.top/1.5) + ")")
             .style("text-anchor", "middle")
             .text("Date");
 
           svg.append("text")
               .attr("transform", "rotate(-90)")
-              .attr("y", 0 - margin.left)
+              .attr("y", 0 - margin.left/1.5)
               .attr("x",0 - (height / 2))
               .attr("dy", "1em")
               .style("text-anchor", "middle")
@@ -220,50 +220,157 @@
             trending_dates.push(e.date)
           })
 
-          //console.log(trending_dates)
+          trend_end_dates = []
+
+
+          for (var i = 0; i < trending_dates.length; i ++){
+
+            var highestPageViews = 0;
+            var madeEndDate = false;
+            data.forEach(function(d){
+
+              if(!madeEndDate){
+
+
+                if(trending_dates[i] < d.date && d.views < highestPageViews * .3){
+                      trend_end_dates.push([d.date, d.views]);
+                      madeEndDate = true;
+
+                }
+                else if(d.views > highestPageViews){
+                  highestPageViews = d.views;
+
+                }
+              }
+
+          })
+
+
+        }
+
 
           newmentions = data.slice();
           var filtered_data = newmentions.filter(function(value, index, arr){
             return show_shade(value.date)
           });
 
+          trending_sections = get_trending_range(data, trending_dates, trend_end_dates);
+
+          svg.append("path")
+            .attr("class", "line")
+            .attr("d", popline(data));
+
           var tip = d3.tip().attr('class', 'd3-tip').direction('e').offset([0,5])
               .html(function(d) {
-                  var content = "<span style='margin-left: 2.5px;'><b>" + 0 + "</b></span><br>";
-                  content +=`
+                s_date = d[0].date
+                e_date = d[d.length - 1].date
+                num_views = d3.sum(d, function(q) {return q.views})
+                  //var content = "<span style='margin-left: 2.5px;'><b>" + ""+ "</b></span><br>";
+                  content =`
                       <table style="margin-top: 2.5px;">
-                              <tr><td>Max: </td><td style="text-align: right">` + "Hello"+ `</td></tr>
+                              <tr><td><b>Started Trending on Twitter: </b></td><td style="text-align: right">`+s_date.toLocaleDateString()+`</td></tr>
+                              <tr><td><b>Stopped Trending on Wikipedia: </b></td><td style="text-align: right">`+e_date.toLocaleDateString()+`</td></tr>
+                              <tr><td><b>Page views while Trending: </b></td><td style="text-align: right">`+num_views+`</td></tr>
                       </table>
                       `;
                   return content;
               });
           svg.call(tip);
 
+
           svg.selectAll("dot")
-            .data(filtered_data)
+            .data(trending_sections)
             .enter().append("circle")
             .attr("r", 4)
-            .attr("cx", function(d) {return xScale(d.date);})
-            .attr("cy", function(d) {return yScale(d.views);})
+            .attr("cx", function(d) {return xScale(d[0].date);})
+            .attr("cy", function(d) {return yScale(d[0].views);})
             .on('mouseover', tip.show)
             .on('mouseout', tip.hide);
+
+
+          // svg.selectAll("dot")
+          //   .data(trend_end_dates)
+          //   .enter().append("circle")
+          //   .attr("r", 10)
+          //   .attr("cx", function(d) {return xScale(d[0]);})
+          //   .attr("cy", function(d) {return yScale(d[1]);})
+          //   .on('mouseover', tip.show)
+          //   .on('mouseout', tip.hide);
+
 
           var ordinal = d3.scaleOrdinal()
             .domain(["Trending on Twitter"])
             .range([ "rgb(0, 0, 0)"]);
 
+          var ordinal_views = d3.scaleOrdinal()
+            .domain(["Trending on Wikipedia"])
+            .range([ "rgb(176, 196, 222)"]);
+
           svg.append("g")
             .attr("class", "legendOrdinal")
             .attr("transform", "translate(500,20)");
+
+          svg.append("g")
+            .attr("class", "legendViews")
+            .attr("transform", "translate(500,50)");
 
           var legendOrdinal = d3.legendColor()
             .shape("path", d3.symbol().type(d3.symbolCircle).size(50)())
             .shapePadding(10)
             .scale(ordinal);
 
+          var legend_views = d3.legendColor()
+            .shape("path", d3.symbol().type(d3.symbolSquare).size(50)())
+            .shapePadding(10)
+            .scale(ordinal_views);
+
+          svg.select(".legendViews")
+            .call(legend_views);
+
           svg.select(".legendOrdinal")
             .call(legendOrdinal);
 
+        }
+
+        function get_trending_range(wiki_data, start_dates, end_dates) {
+
+          ud = []
+          for (var i = 0; i < end_dates.length; i++) {
+            ud[i] = end_dates[i][0]
+          }
+
+
+          unique_end_dates = ud.filter(function(elem, pos) {
+            return ud.indexOf(elem) == pos;
+          });
+
+
+          date_range = []
+          for (var i = 0; i < wiki_data.length; i++) {
+            date_range[i] = wiki_data[i].date
+          }
+          trending_sections = []
+          for (var j = 0; j < unique_end_dates.length; j++) {
+            d = new Date(unique_end_dates[j].setHours(0,0,0,0))
+            for (var i = start_dates.length-1; i >=0; i--) {
+              start_dates[i] = new Date(start_dates[i].setHours(0,0,0,0))
+              idx1 = date_range.map(Number).indexOf(+start_dates[i])
+              idx2 = date_range.map(Number).indexOf(+d)
+              if (start_dates[i] <= d) {
+                trending_sections[j] = wiki_data.slice(idx1, idx2+1)
+                //console.log(date_range.indexOf(start_dates[i]))
+                break;
+              }
+            }
+          }
+          for (var i = 0; i < trending_sections.length; i++) {
+            svg.append("path")
+             .data([trending_sections[i]])
+             .attr("class", "area")
+             .attr("d", area);
+          }
+
+          return trending_sections
 
         }
 
@@ -312,7 +419,6 @@
 
 
         function onClick(event) {
-          console.log("In Here");
           current_term = document.getElementById("myInput").value;
           mentions = wiki_data.filter(d => d.wtrend == current_term)
           let times = d3.extent(mentions.map(d => d.date));
@@ -333,7 +439,7 @@
               };
             });
 
-            console.log(popularity);
+            //console.log(popularity);
             make_graph(popularity, mentions);
             //console.log(result);
             //console.log(mentions);
@@ -378,14 +484,20 @@
           .then(function([wiki, google]) {
             wiki_data = wiki;
             wiki_term = wiki.map(d=>d.wtrend);
-            autocomplete(document.getElementById("myInput"), wiki_term);
+
+            // unique_terms = wiki_term.filter(function(elem, pos) {
+            //   return wiki_term.indexOf(elem) == pos;
+            // });
+            unique_terms = new Set(wiki_term)
+            //console.log(unique_terms)
+            autocomplete(document.getElementById("myInput"), Array.from(unique_terms));
             var wiki_by_trend = d3.nest()
               .key(function(d) {
                 return d.wtrend;
               })
               .entries(wiki);
 
-            console.log(wiki_by_trend)
+            //console.log(wiki_by_trend)
 
           })
 
@@ -411,7 +523,9 @@
           svg.selectAll("text").remove()
           svg.selectAll("circle").remove()
           svg.selectAll(".grid").remove()
+          svg.selectAll(".area").remove()
           svg.selectAll(".legendOrdinal").remove()
+          svg.selectAll(".legendViews").remove()
         }
 
         function report_error(text) {
@@ -429,7 +543,7 @@
       </script>
       <script src="autocomplete.js"></script>
       <div class="autocomplete" style="width:300px;">
-      <input id="myInput" type="text" name="myCountry" placeholder="Country">
+      <input id="myInput" type="text" name="myCountry" placeholder="Enter trend here...">
       </div>
       <button type="button" onclick="onClick()">Submit</button>
     </body>

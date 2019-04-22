@@ -3,9 +3,14 @@ const googleTrends = require('google-trends-api');
 const csv = require('csvtojson');
 var csvWriter = require('csv-write-stream')
 
-const csvFilePath = 'twitter_trends.csv';
+// path to input csv with Twitter trends
+const csvFilePath = process.argv[2];
+console.log(csvFilePath);
+// path to output csv where Google Trends data will be written
+const out_csv_path = process.argv[3];
+console.log(out_csv_path);
+
 var lookback = 15;
-var dataArray = [];
 var trend_names = [];
 
 // read the csv with the current Twitter trends
@@ -36,7 +41,7 @@ new Promise(function(resolve, reject) {
         promises.push(api_results);
       })
       .catch((err) => {
-        return reject(err);
+        console.log(err);
       });
   }
   return Promise.all(promises)
@@ -57,7 +62,7 @@ new Promise(function(resolve, reject) {
   var writer = csvWriter({ headers: headers});
 
   // write to csv
-  writer.pipe(fs.createWriteStream('google_trends.csv'));
+  writer.pipe(fs.createWriteStream(out_csv_path));
   for (var i = 0; i < result.length; i++) {
     var obj = JSON.parse(result[i]);
     var keysArray = obj.default.timelineData;

@@ -110,24 +110,13 @@ x.domain(['t-15','t-14','t-13','t-12','t-11','t-10','t-9','t-8','t-7','t-6','t-5
 
 //On Select
 var cells = function(trend) {
-    // var t = d3.transition()
-    //         .duration(500)
-    // svg.select(".x")
-    //         .transition(t)
-    //         .call(d3.axisBottom(x))
-    //
-    // svg.select(".y")
-    //         .transition(t)
-    //         .call(d3.axisRight(y1))
+    d3.select("svg").remove();
 
-    // d3.selectAll("path").exit();
-    // d3.select("valueline.y).exit();
-    d3.selectAll(".valueline").select("svg").selectAll(".x.axis").remove();
-    d3.selectAll(valueline.y2).exit();
-    d3.selectAll(valueline2.y).remove();
-    d3.selectAll("path").exit();
-    d3.selectAll("axis").remove();
-
+    var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
     y0.domain([0, d3.max(data[trend].wt_val)]);
 

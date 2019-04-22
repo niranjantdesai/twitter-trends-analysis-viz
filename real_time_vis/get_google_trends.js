@@ -5,10 +5,10 @@ var csvWriter = require('csv-write-stream')
 
 // path to input csv with Twitter trends
 const csvFilePath = process.argv[2];
-console.log(csvFilePath);
+// console.log(csvFilePath);
 // path to output csv where Google Trends data will be written
 const out_csv_path = process.argv[3];
-console.log(out_csv_path);
+// console.log(out_csv_path);
 
 var lookback = 15;
 var trend_names = [];

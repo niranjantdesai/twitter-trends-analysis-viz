@@ -73,7 +73,7 @@ def main():
     get_wiki_pageviews(twitter_file, wiki_file)
 
     # combine the Google and Wiki time series for visualization
-    w_data = pd.read_csv("wiki_pageviews.csv")
+    w_data = pd.read_csv(wiki_file)
     g_data = pd.read_csv("google_trends.csv")
     merged = g_data.join(w_data.set_index('trend'), on='trend')
     merged_file = 'merged.csv'

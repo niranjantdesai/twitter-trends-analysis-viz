@@ -9,7 +9,8 @@ var dataArray = [];
 var trend_names = [];
 var all = [];
 
-const csvFilePath = path.join(__dirname, '..', 'data', 'cleaned0.csv')
+const csvFilePath = process.argv[2];
+const out_csv_path = process.argv[3];
 const csv=require('csvtojson')
 
 var lookback = 15
@@ -22,8 +23,7 @@ new Promise(function(resolve, reject) {
 }).then(async function(result) {
   var promises = [];
 
-  // for (var i = 0, p = Promise.resolve(); i < result.length; i++) {
-  for (var i = 3188, p = Promise.resolve(); i < result.length; i++) {
+  for (var i = 0, p = Promise.resolve(); i < result.length; i++) {
     trend_name = result[i].Term
     console.log(trend_name)
     var startDate = new Date(result[i].start)
@@ -103,7 +103,7 @@ new Promise(function(resolve, reject) {
   timestamps.push("NaN")
 
   var writer = csvWriter({ headers: headers})
-  writer.pipe(fs.createWriteStream('google_trends_5801.csv'))
+  writer.pipe(fs.createWriteStream(out_csv_path))
   for (var i = 0; i < result.length; i++) {
     var obj = JSON.parse(result[i])
     var keysArray = obj.default.timelineData

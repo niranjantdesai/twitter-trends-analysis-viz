@@ -75,7 +75,8 @@ def main():
     # combine the Google and Wiki time series for visualization
     w_data = pd.read_csv(wiki_file)
     g_data = pd.read_csv("google_trends.csv")
-    merged = g_data.join(w_data.set_index('trend'), on='trend')
+    # merged = g_data.join(w_data.set_index('trend'), on='trend')
+    merged = g_data.merge(w_data.set_index('trend'), on='trend')
     merged_file = 'merged.csv'
     merged.to_csv(merged_file, index=False)
 

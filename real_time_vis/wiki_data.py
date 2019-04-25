@@ -25,7 +25,8 @@ def get_wiki_pageviews(twitter_file: str, wiki_file: str):
 
     for index, row in timeStamps.iterrows():
         days_before = 15
-        topic = row[2]
+        # topic = row[2]
+        topic = row.name
         start_date = (datetime.today() - timedelta(days=days_before+1)).strftime('%Y%m%d')
         end_date = datetime.today().strftime('%Y%m%d')
 

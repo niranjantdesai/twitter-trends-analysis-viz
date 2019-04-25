@@ -2,15 +2,16 @@
 
 The code is organized in the CODE directory according to the following directory structure:
 
-clustering_experiments:
+clustering_experiments: Jupyter notebook using Python 3.6 for basic data exploration and experiments with k-means clustering on wikipedia timeseries data
 
-historical_vis:
+historical_vis: HTML with D3 JS code for visualizing long-term history of a trend's popularity on wikipedia and twitter
 
 real_time_vis: Main Python script, additional helper Python and Node.js scripts and an HTML with D3 JS code for visualizing real-time trends
 
 related_trends:
 
 scripts: Node JS script to get Google Trends interest over time data for the trends in the historical Twitter dataset
+         Python script to get wikipedia page view data for the trends in the historical Twitter dataset
 
 package.json and package-lock.json: Node.js dependencies
 
@@ -22,7 +23,7 @@ python_requirements.txt: Python package dependencies
 ## Node.js
 First install the NPM package manager and Node.js, then run the following command from the CODE directory to install all Node.js dependencies:
 ```
-npm install 
+npm install
 ```
 
 ## Python
@@ -35,6 +36,8 @@ It's recommended to install these packages in a virtual environment to avoid any
 # EXECUTION
 
 ## Historical view
+Open `ts_vis.html` in a browser such as Firefox. Interact with the visualization by searching for trending topics in the search bar.
+
 
 
 ## Real-time view
@@ -60,5 +63,6 @@ node googletrends_interestOT.js <path-to-twitter-csv> <path-to-output-csv>
 
 To get the Wikipedia pageviews, run the following command:
 ```
-
+python wiki_collection_multi.py
 ```
+Expects a csv of twitter trends and associated datetimes to reseide in the same directory

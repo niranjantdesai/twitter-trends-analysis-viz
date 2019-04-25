@@ -37,6 +37,7 @@ def get_wiki_pageviews(twitter_file: str, wiki_file: str):
             else:
                 interpreted_topic = 'NA'
 
+            interpreted_topic = topic
             if interpreted_topic is not 'NA':
                 topic_views = pgviews.per_article('en.wikipedia', interpreted_topic, start_date, end_date, agent='user',
                                                       access='all-access', granularity='daily')['items']

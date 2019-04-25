@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.axisSteelBlue text{
+  fill: steelblue;
+}
+
+.axisRed text{
+  fill: red;
+}
+
+ .select {
+     position: absolute;
+     top: 40px;
+     left: 445px;
+ }
+
+</style>
+<body>
+
+<!-- load the d3.js library -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 80, right: 40, bottom: 80, left: 80},
+    width = 960 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
+
+
+// set the ranges
+var x = d3.scalePoint().range([0, width]);
+var y0 = d3.scaleLinear().range([height, 0]);
+var y1 = d3.scaleLinear().range([height, 0]);
+
+
+curr_trend = 'Happy Easter'
+// define the 1st line
+var valueline = d3.line()
+    .x(function(d,i) {
+        return x(d.time); })
+    .y(function(d) {
+        return y0(d.val); });
+
+// define the 2nd line
+var valueline2 = d3.line()
+    .x(function(d) { return x(d.time); })
+    .y(function(d) { return y1(d.val); });
+
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("merged.csv", function(error, data) {
+  if (error) throw error;
+
+  // format the data
+  data.forEach(function(d) {
+      d.trend = d.trend;
+      d.gt_val = [+d['t-15_x'], +d['t-14_x'],+d['t-13_x'],+d['t-12_x'],+d['t-11_x'],+d['t-10_x'],+d['t-9_x'],+d['t-8_x'],+d['t-7_x'],+d['t-6_x'],
+             +d['t-5_x'],+d['t-4_x'],+d['t-3_x'],+d['t-2_x'],+d['t-1_x'],+d['t_x']];
+      d.wt_val = [+d['t-15_y'],+d['t-14_y'],+d['t-13_y'],+d['t-12_y'],+d['t-11_y'],+d['t-10_y'],+d['t-9_y'],+d['t-8_y'],+d['t-7_y'],+d['t-6_y'], +d['t-5_y'], +d['t-4_y'],+d['t-3_y'],+d['t-2_y'],+d['t-1_y'],+d['t_y']];
+      d.axis_vals = {0:'t-15',1:'t-14',2:'t-13',3:'t-12',4:'t-11',5:'t-10',6:'t-9',7:'t-8',8:'t-7',9:'t-6',10:'t-5',11:'t-4',12:'t-3',13:'t-2',14:'t-1',15:'t'};
+
+  });
+
+
+//  Menu
+var nest = d3.nest()
+      .key(function(d) { return d.trend; })
+      .entries(data);
+
+var trends = nest.map(function(d) { return d.key; });
+
+var trendMenu = d3.select("body");
+    //
+    trendMenu.append("select")
+      .attr("class", "select")
+        .attr("id", "trdrop")
+      .selectAll("option")
+        .data(trends)
+        .enter()
+        .append("option")
+        .attr("value", function(d, i) { return i; })
+         .attr("transform", function(d, i) {
+                         return "translate(" + (width/2) + "," + (height/2) + ")"; })
+        .text(function(d) { return d; });
+
+//TESTING
+
+
+// Domain
+x.domain(['t-15','t-14','t-13','t-12','t-11','t-10','t-9','t-8','t-7','t-6','t-5','t-4','t-3','t-2','t-1','t']);
+
+
+//On Select
+var cells = function(trend) {
+    d3.select("svg").remove();
+
+    var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+    y0.domain([0, d3.max(data[trend].wt_val)]);
+
+
+    y1.domain([0, d3.max(data[trend].gt_val)]);
+
+
+    var dataset_wt = [];
+    for (var i = 0; i < 16; i++) {
+
+        dataset_wt.push({time:data[trend].axis_vals[i], val:data[trend].wt_val[i]})
+    }
+
+    var dataset_gt = [];
+    for (var i = 0; i < 16; i++) {
+        dataset_gt.push({time:data[trend].axis_vals[i], val:data[trend].gt_val[i]})
+    }
+    svg.append("path")
+      .data([dataset_wt])
+      .attr("class", "line")
+      .attr("d", valueline);
+
+  // Add the valueline2 path.
+  svg.append("path")
+      .data([dataset_gt])
+      .attr("class", "line")
+      .style("stroke", "red")
+      .attr("d", valueline2);
+
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .style("font-size", "15px")
+      .call(d3.axisBottom(x));
+
+  // Add the Y0 Axis
+  svg.append("g")
+      .attr("class", "axisSteelBlue")
+      .style("font-size", "15px")
+      .call(d3.axisLeft(y0));
+
+  // Add the Y1 Axis
+  svg.append("g")
+      .attr("class", "axisRed")
+      .attr("transform", "translate( " + width + ", 0 )")
+      .style("font-size", "15px")
+      .call(d3.axisRight(y1));
+
+  svg.append("text")
+      .attr("transform", "translate(" + (width-10) + " ," +
+          (-10) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "15px")
+      .text("Google Trends")
+      .style('fill', 'black');
+
+   svg.append("text")
+      .attr("transform", "translate(" + (20) + " ," +
+          (-10) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "15px")
+      .text("Wiki PageViews")
+      .style('fill', 'black');
+
+  svg.append("text")
+      .attr("transform", "translate(" + (width-10) + " ," +
+          (-10) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "15px")
+      .text("Google Trends")
+      .style('fill', 'black');
+
+    svg.append("text")
+      .attr("transform", "translate(" + (width/2) + " ," +
+          (height+30) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "15px")
+        .text('Day')
+      .style('fill', 'black');
+
+    svg.append("text")
+      .attr("transform", "translate(" + (330) + " ," +
+          (-35) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "15px")
+      .text("Trend")
+      .style('fill', 'black');
+
+    svg.append("text")
+      .attr("transform", "translate(" + (width/2) + " ," +
+          (-60) + ")")
+      .style("text-anchor", "middle")
+      .style("font-size", "20px")
+      .text("Real-Time Trends")
+      .style('fill', 'black');
+
+};
+cells(0);
+
+trendMenu.on("change", function() {
+    var selectedTrend = d3.select(this)
+        .select("select")
+        .property("value");
+    currentTrendIndex = +selectedTrend;
+    cells(currentTrendIndex);
+});
+
+
+  // Add the valueline path.
+
+
+
+
+});
+
+</script>
+</body>

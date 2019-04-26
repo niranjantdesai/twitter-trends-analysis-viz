@@ -38,8 +38,17 @@ It's recommended to install these packages in a virtual environment to avoid any
 ## Historical view
 Open `ts_vis.html` in a browser such as Firefox. Interact with the visualization by searching for trending topics in the search bar.
 
-
-
+## Related Trends
+To first get the spacy model, run the following command from the `related_trends/NLPVisualization` directory:
+```
+python -m spacy download en_core_web_md
+```
+To get related trends, run the following command from the same directory:
+```
+python nlpFunctions.py
+```
+From the same directory, open `graph.html` to visualize the related trends
+```
 ## Real-time view
 To access the Twitter API, you need an API key and access token which you can get by signing up for a developer account here: https://developer.twitter.com/en/docs.html. Store your credentials in the following JSON format:
 {

@@ -8,7 +8,7 @@ historical_vis: HTML with D3 JS code for visualizing long-term history of a tren
 
 real_time_vis: Main Python script, additional helper Python and Node.js scripts and an HTML with D3 JS code for visualizing real-time trends
 
-related_trends:
+related_trends: Lib folder with D3 JS requirements along with an NLPVisualization with with the main python script to get related trends, and an HTML to visualize them
 
 scripts: Node JS script to get Google Trends interest over time data for the trends in the historical Twitter dataset
          Python script to get wikipedia page view data for the trends in the historical Twitter dataset

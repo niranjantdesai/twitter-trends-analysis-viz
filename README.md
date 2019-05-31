@@ -1,16 +1,16 @@
-# News Trends Analysis
+# Twitter Trends Analysis and Visualization
 
 The code is organized according to the following directory structure:
 
 `clustering_experiments`: Jupyter notebook using Python 3.6 for basic data exploration and experiments with k-means clustering on Wikipedia timeseries data
 
-`historical_vis`: HTML with D3 JS code for visualizing long-term history of a trend's popularity on wikipedia and twitter
+`historical_vis`: HTML with D3 JS code for visualizing long-term history of a trend's popularity on Wikipedia and Twitter
 
 `real_time_vis`: Main Python script, additional helper Python and Node.js scripts and an HTML with D3 JS code for visualizing real-time trends
 
 `related_trends`: Lib folder with the D3 JS requirements along with an NLP visualization with the main python script to get related trends, and an HTML to visualize them
 
-`scripts`: 1. Node JS script to get Google Trends interest over time data for the trends in the historical Twitter dataset and 2. Python script to get wikipedia page view data for the trends in the historical Twitter dataset
+`scripts`: 1. Node.js script to get Google Trends interest over time data for the trends in the historical Twitter dataset and 2. Python script to get wikipedia page view data for the trends in the historical Twitter dataset
 
 `package.json` and `package-lock.json`: Node.js dependencies
 
@@ -35,10 +35,10 @@ It's recommended to install these packages in a virtual environment to avoid any
 ## EXECUTION
 
 ### Historical view
-Open `ts_vis.html` in a browser such as Firefox. Interact with the visualization by searching for trending topics in the search bar.
+Open `ts_vis.html` in a browser and interact with the visualization by searching for trending topics in the search bar.
 
 ### Related Trends
-To first get the spacy model, run the following command from the `related_trends/NLPVisualization` directory:
+To first get the spaCy model, run the following command from the `related_trends/NLPVisualization` directory:
 ```
 python -m spacy download en_core_web_md
 ```

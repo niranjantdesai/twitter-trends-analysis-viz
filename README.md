@@ -1,6 +1,6 @@
 # News Trends Analysis
 
-The code is organize according to the following directory structure:
+The code is organized according to the following directory structure:
 
 `clustering_experiments`: Jupyter notebook using Python 3.6 for basic data exploration and experiments with k-means clustering on Wikipedia timeseries data
 
